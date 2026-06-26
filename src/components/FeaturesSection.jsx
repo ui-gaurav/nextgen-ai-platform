@@ -116,7 +116,7 @@ export default function FeaturesSection() {
               <span key={i} className="word">{word} </span>
             ))}
           </h2>
-          <p className="max-w-2xl mx-auto text-arctic-powder/60 text-lg">
+          <p className="max-w-2xl mx-auto !text-center text-balance text-arctic-powder/60 text-lg" style={{ textAlign: 'center' }}>
             Six powerful modules that work together seamlessly — from ingestion to insight.
           </p>
         </div>
@@ -144,41 +144,42 @@ function BentoGridView() {
         const isActive = activeIndex === index;
 
         return (
-          <article
-            key={feature.id}
-            className={`reveal ${feature.span} relative rounded-2xl border p-6 bento:p-8 cursor-pointer group
-              transition-all duration-[var(--duration-micro)] ease-[var(--ease-micro)]
-              ${isActive
-                ? 'border-forsythia/40 bg-gradient-to-br from-oceanic-noir to-nocturnal-expedition/80 shadow-lg shadow-forsythia/10'
-                : 'border-white/5 bg-oceanic-noir/50 hover:border-forsythia/20 hover:bg-oceanic-noir/80'
-              }`}
-            role="listitem"
-            onMouseEnter={() => setActive(index)}
-            onFocus={() => setActive(index)}
-            tabIndex={0}
-          >
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4
-              transition-colors duration-[var(--duration-micro)] ease-[var(--ease-micro)]
-              ${isActive ? 'bg-forsythia/20 text-forsythia' : 'bg-white/5 text-arctic-powder/60 group-hover:text-forsythia'}`}
+          <div key={feature.id} className={`reveal ${feature.span}`}>
+            <article
+              className={`h-full relative rounded-2xl border p-6 bento:p-8 cursor-pointer group
+                transition-all duration-[var(--duration-micro)] ease-[var(--ease-micro)]
+                ${isActive
+                  ? 'border-forsythia/40 bg-gradient-to-br from-oceanic-noir to-nocturnal-expedition/80 shadow-lg shadow-forsythia/10'
+                  : 'border-white/5 bg-oceanic-noir/50 hover:border-forsythia/20 hover:bg-oceanic-noir/80'
+                }`}
+              role="listitem"
+              onMouseEnter={() => setActive(index)}
+              onFocus={() => setActive(index)}
+              tabIndex={0}
             >
-              <Icon className="w-5 h-5" />
-            </div>
-            <h3 className={`font-mono text-lg mb-2 transition-colors duration-[var(--duration-micro)]
-              ${isActive ? 'text-forsythia' : 'text-arctic-powder group-hover:text-forsythia'}`}>
-              {feature.title}
-            </h3>
-            <p className="text-arctic-powder/60 text-sm leading-relaxed">
-              {feature.description}
-            </p>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4
+                transition-colors duration-[var(--duration-micro)] ease-[var(--ease-micro)]
+                ${isActive ? 'bg-forsythia/20 text-forsythia' : 'bg-white/5 text-arctic-powder/60 group-hover:text-forsythia'}`}
+              >
+                <Icon className="w-5 h-5" />
+              </div>
+              <h3 className={`font-mono text-lg mb-2 transition-colors duration-[var(--duration-micro)]
+                ${isActive ? 'text-forsythia' : 'text-arctic-powder group-hover:text-forsythia'}`}>
+                {feature.title}
+              </h3>
+              <p className="text-arctic-powder/60 text-sm leading-relaxed">
+                {feature.description}
+              </p>
 
-            {/* Active indicator bar */}
-            <div
-              className={`absolute bottom-0 left-6 right-6 h-0.5 rounded-full bg-gradient-to-r from-forsythia to-deep-saffron
-                transition-opacity duration-[var(--duration-micro)] ease-[var(--ease-micro)]
-                ${isActive ? 'opacity-100' : 'opacity-0'}`}
-              aria-hidden="true"
-            />
-          </article>
+              {/* Active indicator bar */}
+              <div
+                className={`absolute bottom-0 left-6 right-6 h-0.5 rounded-full bg-gradient-to-r from-forsythia to-deep-saffron
+                  transition-opacity duration-[var(--duration-micro)] ease-[var(--ease-micro)]
+                  ${isActive ? 'opacity-100' : 'opacity-0'}`}
+                aria-hidden="true"
+              />
+            </article>
+          </div>
         );
       })}
     </div>
