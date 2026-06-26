@@ -1,0 +1,304 @@
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Tokens ─── */
+@theme {
+  /* Color Palette — from colorPallet.pdf */
+  --color-arctic-powder: #F1F6F4;
+  --color-mystic-mint: #D9E8E2;
+  --color-forsythia: #FFC801;
+  --color-deep-saffron: #FF9932;
+  --color-nocturnal-expedition: #114C5A;
+  --color-oceanic-noir: #172B36;
+
+  /* Font Families */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Custom Breakpoint — mirrors BENTO_BREAKPOINT_PX in constants.js */
+  --breakpoint-bento: 768px;
+
+  /* Easing Tokens — motion constraint compliance */
+  --ease-micro: cubic-bezier(0, 0, 0.2, 1);   /* ease-out for micro-interactions */
+  --ease-structural: cubic-bezier(0.4, 0, 0.2, 1); /* ease-in-out for layout reflows */
+
+  /* Duration Tokens */
+  --duration-micro: 180ms;       /* 150–200ms band */
+  --duration-structural: 350ms;  /* 300–400ms band */
+}
+
+/* ─── Base Styles ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-arctic-powder);
+  background-color: var(--color-oceanic-noir);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  margin: 0;
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  line-height: 1.7;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ─── Scroll Reveal Animation ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-structural) var(--ease-structural),
+              transform var(--duration-structural) var(--ease-structural);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 400ms; }
+
+/* Word-by-word reveal for headlines */
+.word-reveal .word {
+  display: inline-block;
+  opacity: 0.2;
+  transform: translateY(4px);
+  margin-right: 0.3em;
+  transition: opacity 400ms var(--ease-micro),
+              transform 400ms var(--ease-micro);
+}
+
+.word-reveal.revealed .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.word-reveal .word:nth-child(1) { transition-delay: 0ms; }
+.word-reveal .word:nth-child(2) { transition-delay: 60ms; }
+.word-reveal .word:nth-child(3) { transition-delay: 120ms; }
+.word-reveal .word:nth-child(4) { transition-delay: 180ms; }
+.word-reveal .word:nth-child(5) { transition-delay: 240ms; }
+.word-reveal .word:nth-child(6) { transition-delay: 300ms; }
+.word-reveal .word:nth-child(7) { transition-delay: 360ms; }
+.word-reveal .word:nth-child(8) { transition-delay: 420ms; }
+.word-reveal .word:nth-child(9) { transition-delay: 480ms; }
+
+/* ─── Entry Animations (≤500ms total, GPU-accelerated) ─── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp 500ms var(--ease-micro) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 400ms var(--ease-micro) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 400ms var(--ease-micro) both;
+}
+
+/* Staggered entry delays for hero */
+.hero-delay-1 { animation-delay: 0ms; }
+.hero-delay-2 { animation-delay: 100ms; }
+.hero-delay-3 { animation-delay: 200ms; }
+.hero-delay-4 { animation-delay: 300ms; }
+
+/* ─── Pricing CSS Attribute-Swap (Feature 1 — zero re-render) ─── */
+/* All 18 price spans are rendered hidden; CSS shows the correct one based on data-* attrs */
+.price-value {
+  display: none;
+}
+
+/* USD prices */
+[data-currency="USD"][data-cycle="monthly"] .price-USD-monthly,
+[data-currency="USD"][data-cycle="annual"] .price-USD-annual,
+[data-currency="EUR"][data-cycle="monthly"] .price-EUR-monthly,
+[data-currency="EUR"][data-cycle="annual"] .price-EUR-annual,
+[data-currency="INR"][data-cycle="monthly"] .price-INR-monthly,
+[data-currency="INR"][data-cycle="annual"] .price-INR-annual {
+  display: inline;
+}
+
+/* ─── Micro-interaction utilities ─── */
+.hover-lift {
+  transition: transform var(--duration-micro) var(--ease-micro),
+              box-shadow var(--duration-micro) var(--ease-micro);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-micro) var(--ease-micro);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 200, 1, 0.15);
+}
+
+/* ─── Accordion height transition (WAAPI will handle, but CSS fallback) ─── */
+.accordion-panel {
+  overflow: hidden;
+  transition: max-height var(--duration-structural) var(--ease-structural),
+              opacity var(--duration-structural) var(--ease-structural);
+}
+
+/* ─── Chevron rotation for accordion ─── */
+.chevron-rotate {
+  transition: transform var(--duration-micro) var(--ease-micro);
+}
+
+.chevron-rotate.open {
+  transform: rotate(180deg);
+}
+
+/* ─── prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .word-reveal .word {
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─── Pricing Cycle Toggle (data-attribute driven, zero re-render) ─── */
+.pricing-cycle-toggle .cycle-btn {
+  color: rgba(241, 246, 244, 0.5);
+  background: transparent;
+}
+
+.pricing-cycle-toggle[data-active-cycle="monthly"] .cycle-btn-monthly,
+.pricing-cycle-toggle[data-active-cycle="annual"] .cycle-btn-annual {
+  color: #172B36;
+  background: linear-gradient(to right, #FFC801, #FF9932);
+  box-shadow: 0 2px 12px rgba(255, 200, 1, 0.2);
+}
+
+/* ─── Dot grid background for hero ─── */
+.dot-grid-bg {
+  background-image: radial-gradient(circle, rgba(255, 200, 1, 0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #172B36;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #114C5A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFC801;
+}
